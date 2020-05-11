@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from './Main';
+import Main from './components/Main/Main';
 // import logo from './logo.svg';
 import './App.css';
 

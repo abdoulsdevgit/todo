@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from './Main.module.css';
-import Todo from './Todo';
+import Todo from '../todo/Todo';
 
 class Main extends Component {
 
@@ -41,6 +41,18 @@ class Main extends Component {
     addTodo = (event) => {
         if(event.key === "Enter") {
 
+            // do nothing if input field is empty and user pushes Enter.
+            if(this.state.input === null || this.state.input.trim() === '') {
+                
+                if(this.state.isEdit) {
+                    this.setState({
+                        isEdit: false
+                    });
+                }
+
+                return;
+            }
+
             if(this.state.isEdit) {
                 const editedArray = [...this.state.todos];
                 editedArray[this.state.editedIndex] = this.state.input;
@@ -74,6 +86,12 @@ class Main extends Component {
 
     // creates todo with the given index.
     createTodo = (index) => {
+
+        const todo = {
+            isChecked: false,
+            value: ""
+        };
+
         return (
             <Todo 
                 key={index}
@@ -84,6 +102,7 @@ class Main extends Component {
         )
     }
 
+    // delete's a todo
     handleDelete = (index) =>  {
         
         const temp = this.state.todos.slice();
