@@ -3,11 +3,14 @@ import styles from './Todo.module.css';
 
 
 function Todo(props) {
+
+    let checked = props.value.isChecked ? styles.checked: null;
+    console.log(`Handle check in todo clicked ${props.value.isChecked}`);
     return(
-        <div>
+        <div >
             <div className={styles.container}>
                 <div className={styles.contentDisplay}>
-                    <h1 className={styles.todoValue}>{props.value.value}</h1>
+                    <h1 onClick={() => props.handleCheck()} className={[styles.todoValue, checked]} >{props.value.value}</h1>
                 </div>
                 
                 <div className={styles.controls}>

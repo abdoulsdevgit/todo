@@ -10,7 +10,6 @@ class Main extends Component {
         this.state = {
             input: "",
             todos: [this.newTodo("first")],
-            isEdit: false,
             editedIndex: -1,
 
         }
@@ -100,6 +99,7 @@ class Main extends Component {
                 value={this.state.todos[index]}
                 onEdit={() => this.handleEdit(index)}
                 handleDelete={() => this.handleDelete(index)}
+                handleCheck={() => this.handleCheck(index)}
             />
         )
     }
@@ -107,10 +107,11 @@ class Main extends Component {
     // delete's a todo
     handleDelete = (index) =>  {
         
-        const temp = this.state.todos.slice();
-        temp.splice(index, 1);
+        const todos = [...this.state.todos];
+        todos.splice(index, 1);
+
         this.setState({
-            todos: temp,
+            todos,
             input: "",
         });
     }
@@ -126,6 +127,14 @@ class Main extends Component {
         return null;
     }
     // when checked move it at the bottom of the list
+    handleCheck = (index) => {
+        const todos = [...this.state.todos];
+        todos[index].isChecked = !todos[index].isChecked;
+        // TODO: rearrange checked and unchecked;
+        this.setState({todos});
+        console.log(`Handle check clicked ${todos[index].isChecked}`);
+
+    }
 }
 
 export default Main;

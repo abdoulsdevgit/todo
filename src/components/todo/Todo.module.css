@@ -35,3 +35,9 @@
     text-decoration: line-through;
     color: gray;
 }
+
+.checked {
+    /* text-decoration: line-through; */
+    color: red;
+}
+
