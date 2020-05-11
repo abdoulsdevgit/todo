@@ -9,7 +9,7 @@ class Main extends Component {
 
         this.state = {
             input: "",
-            todos: ["Hello"],
+            todos: [this.newTodo("first")],
             isEdit: false,
             editedIndex: -1,
 
@@ -43,19 +43,14 @@ class Main extends Component {
 
             // do nothing if input field is empty and user pushes Enter.
             if(this.state.input === null || this.state.input.trim() === '') {
-                
-                if(this.state.isEdit) {
-                    this.setState({
-                        isEdit: false
-                    });
-                }
-
                 return;
             }
 
-            if(this.state.isEdit) {
+            if(this.checkForEdit()) {
+                
                 const editedArray = [...this.state.todos];
-                editedArray[this.state.editedIndex] = this.state.input;
+                editedArray[this.state.editedIndex].value = this.state.input;
+                editedArray[this.state.editedIndex].isEdited = false;
                 this.setState(oldState => ({
                     isEdit: !oldState.isEdit,
                     todos: editedArray,
@@ -65,7 +60,7 @@ class Main extends Component {
             } else {
 
                 this.setState({
-                    todos: [...this.state.todos, this.state.input],
+                    todos: [...this.state.todos, this.newTodo(this.state.input)],
                     input: "",
                 })
             }
@@ -73,24 +68,31 @@ class Main extends Component {
         }
     }
 
+    newTodo = (value) => {
+        return  {
+            isChecked: false,
+            isEdited: false,
+            value,
+        };
+    }
+
     // called by the child edit button
     handleEdit = (index) => {
 
+        const todos = [...this.state.todos];
+        todos.forEach(e => e.isEdited = false);
+        todos[index].isEdited = !todos[index].isEdited;
+
         this.setState( oldState => ({
-            isEdit: !oldState.isEdit,
-            input: oldState.todos[index],
-            editedIndex: index
+            input: oldState.todos[index].value,
+            editedIndex: index,
+            todos,
         }));
         console.log("Edit Clicked");
     }
 
     // creates todo with the given index.
     createTodo = (index) => {
-
-        const todo = {
-            isChecked: false,
-            value: ""
-        };
 
         return (
             <Todo 
@@ -109,10 +111,25 @@ class Main extends Component {
         temp.splice(index, 1);
         this.setState({
             todos: temp,
-            isEdit: false,
             input: "",
         });
     }
+
+    // this checks for a todo
+    checkForEdit = () => {
+        for(let i = 0; i < this.state.todos.length; i++) {
+            let todo = this.state.todos[i];
+            if(todo.isEdited) {
+                return todo;
+            }
+        }
+        return null;
+    }
+    // when checked move it at the bottom of the list
 }
 
 export default Main;
+
+/** if you click edit you set all of the other todos edit to false
+ * the set the current todo edit to true.
+ */

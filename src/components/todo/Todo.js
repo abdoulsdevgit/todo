@@ -7,7 +7,7 @@ function Todo(props) {
         <div>
             <div className={styles.container}>
                 <div className={styles.contentDisplay}>
-                    <h1 className={styles.todoValue}>{props.value}</h1>
+                    <h1 className={styles.todoValue}>{props.value.value}</h1>
                 </div>
                 
                 <div className={styles.controls}>
