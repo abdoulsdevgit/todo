@@ -87,7 +87,7 @@ class Main extends Component {
             editedIndex: index,
             todos,
         }));
-        console.log("Edit Clicked");
+        console.log("Edit Clicked"); // TODO: delete this
     }
 
     // creates todo with the given index.
@@ -131,7 +131,24 @@ class Main extends Component {
         const todos = [...this.state.todos];
         todos[index].isChecked = !todos[index].isChecked;
         // TODO: rearrange checked and unchecked;
+        let trailer = 0;
+        
+        // this moves all checked todos down the list
+        for(let i = 0; i < this.state.todos.length; i++) {
+
+            if(!todos[i].isChecked) {
+                let temp = todos[i];
+                todos[i] = todos[trailer];
+                todos[trailer] = temp;
+                trailer++;
+            } else {
+                // TODO: put a counter here if you want to count number
+                // of checked todos
+            }
+        }
+
         this.setState({todos});
+        //TODO: delet this too
         console.log(`Handle check clicked ${todos[index].isChecked}`);
 
     }

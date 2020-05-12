@@ -1,13 +1,18 @@
 .container {
     border: 5px dashed black;
-    width: 50%;
+    width: 90%;
     /* Temporary height */
-    background-color: orange;
+    background-color: #0294A5;
     color: white;
 
     display: flex;
     align-items: center;
     /* justify-content: space-between; */
+    margin: 0.5em auto;
+}
+
+.wrapper {
+    width: 100%;
 }
 
 .controls {
@@ -37,7 +42,16 @@
 }
 
 .checked {
-    /* text-decoration: line-through; */
-    color: red;
+    text-decoration: line-through;
+    color: black;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+}
+
+.control {
+    font-size: 1.5em;
+    padding: 0 1em;
+    cursor: pointer;
 }
 
